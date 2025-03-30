@@ -14,10 +14,14 @@
     "vue": "^3.5.13"
   },
   "devDependencies": {
+    "@iconify-json/arcticons": "^1.2.21",
+    "@iconify-json/mdi": "^1.2.3",
+    "@iconify-json/tdesign": "^1.2.7",
     "@vitejs/plugin-vue": "^5.2.1",
     "@vue/tsconfig": "^0.7.0",
     "typescript": "~5.7.2",
     "unplugin-auto-import": "^19.1.2",
+    "unplugin-icons": "^22.1.0",
     "unplugin-vue-components": "^28.4.1",
     "vite": "^6.2.0",
     "vue-tsc": "^2.2.4"

@@ -12,6 +12,9 @@ export abstract class Renderer {
 
 
 export class CanvasRenderer  extends Renderer {
+  public onSelected(component: RenderComponent): void {
+  }
+  
   private container:HTMLElement;
   private canvas?: HTMLCanvasElement;
   private ctx?: CanvasRenderingContext2D;
