@@ -1,0 +1,7 @@
+export * from './RenderComponent'
+export * from './DragPointComponent'
+export * from './DragComponent'
+export * from './DragRectangleComponent'
+export * from './RectangleComponent'
+export * from './SquareComponent'
+export * from './CircleComponent'
