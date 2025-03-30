@@ -4,9 +4,9 @@
 
 ## 技术栈学习
 
-- (Canvas)[https://developer.mozilla.org/zh-CN/docs/Web/API/Canvas_API#%E5%8F%82%E8%80%83]
-- (Vue)[https://cn.vuejs.org/]
-- (Mitt)[https://www.npmjs.com/package/mitt]
+- [Canvas](https://developer.mozilla.org/zh-CN/docs/Web/API/Canvas_API#%E5%8F%82%E8%80%83) 官方Canvas文档
+- [Vue3](https://cn.vuejs.org/) Vue官方文档
+- [Mitt](https://www.npmjs.com/package/mitt) 轻量级订阅发布框架
 
 
 ## 预览
