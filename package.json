@@ -11,6 +11,7 @@
   "dependencies": {
     "@imengyu/vue3-context-menu": "^1.4.6",
     "element-plus": "^2.9.7",
+    "mitt": "^3.0.1",
     "vue": "^3.5.13"
   },
   "devDependencies": {
@@ -19,6 +20,8 @@
     "@iconify-json/tdesign": "^1.2.7",
     "@vitejs/plugin-vue": "^5.2.1",
     "@vue/tsconfig": "^0.7.0",
+    "sass": "^1.86.0",
+    "sass-loader": "^16.0.5",
     "typescript": "~5.7.2",
     "unplugin-auto-import": "^19.1.2",
     "unplugin-icons": "^22.1.0",

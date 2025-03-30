@@ -1,6 +1,7 @@
 import type { DragComponent } from "./DragComponent";
 import type { MousePosition } from '../type'
 import type { DragPointComponent } from "./DragPointComponent";
+import type { Renderer } from "../Renderer";
 
 export abstract class RenderComponent {
   public dragComponent?: DragComponent;
@@ -106,18 +107,18 @@ export abstract class RenderComponent {
       ctx.closePath()
     }
   }
-  public onMouseMove(_position: MousePosition, _e: MouseEvent) {
-    this.handleDragComponentOnHover(_position, _e)
-    this.handleDragComponentOnMoving(_position, _e)
+  public onMouseMove(_renderer: Renderer, _e: MouseEvent) {
+    this.handleDragComponentOnHover(_renderer, _e)
+    this.handleDragComponentOnMoving(_renderer, _e)
   }
 
-  protected handleDragComponentOnHover(_position: MousePosition, _e: MouseEvent) {
+  protected handleDragComponentOnHover(_renderer: Renderer, _e: MouseEvent) {
     if (this.selectedDragPointComponent && this.selectedDragPointComponent.isSelected) return
     if (!this.dragComponent) {
       (_e.target as HTMLCanvasElement).style.cursor = this.defaultCursor
       return;
     }
-    const dragPoint = this.dragComponent.getDragPoint(_position.x, _position.y)
+    const dragPoint = this.dragComponent.getDragPoint(_renderer.position.x, _renderer.position.y)
     if (!this.isSelected || !dragPoint) {
       this.dragComponent.dragPoints.forEach(item => {
         item.isFill = false;
@@ -131,7 +132,7 @@ export abstract class RenderComponent {
     (_e.target as HTMLCanvasElement).style.cursor = dragPoint.cursor;
   }
 
-  protected handleDragComponentOnMoving(_position: MousePosition, _e: MouseEvent) {
+  protected handleDragComponentOnMoving(_renderer: Renderer, _e: MouseEvent) {
     if (!this.dragComponent || !this.selectedDragPointComponent) {
       this.enableMove = true;
       this.showComponentInfo = false
@@ -139,15 +140,16 @@ export abstract class RenderComponent {
     }
     this.enableMove = false;
     this.showComponentInfo = true
-    this.selectedDragPointComponent.handle(_position, _e);
+    this.selectedDragPointComponent.handle(_renderer, _e);
+    _renderer.emit('resize', this)
   }
 
-  public onMouseDown(_position: MousePosition, _e: MouseEvent) {
-    this.handleComponetOnMouseDown(_position, _e);
+  public onMouseDown(_renderer: Renderer, _e: MouseEvent) {
+    this.handleComponetOnMouseDown(_renderer, _e);
   }
 
-  protected handleComponetOnMouseDown(_position: MousePosition, _e: MouseEvent) {
-    const dragPoint = this.dragComponent?.getDragPoint(_position.x, _position.y)
+  protected handleComponetOnMouseDown(_renderer: Renderer, _e: MouseEvent) {
+    const dragPoint = this.dragComponent?.getDragPoint(_renderer.position.x, _renderer.position.y)
     if (!dragPoint) {
       return
     }
@@ -155,7 +157,7 @@ export abstract class RenderComponent {
     this.selectedDragPointComponent.isSelected = true
   }
 
-  public onMouseUp(_position: MousePosition, _e: MouseEvent) {
+  public onMouseUp(_renderer: Renderer, _e: MouseEvent) {
     if (!this.dragComponent || !this.selectedDragPointComponent) return
     this.enableMove = true;
     if (this.selectedDragPointComponent.isSelected) {

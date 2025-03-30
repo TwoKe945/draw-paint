@@ -32,4 +32,11 @@ export default defineConfig({
       defaultClass: 'icon'
     })
   ],
+  css: {
+    preprocessorOptions: {
+      scss: {
+        api: 'modern-compiler'
+      },
+    }
+  }
 })

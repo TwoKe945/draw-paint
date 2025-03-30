@@ -13,8 +13,8 @@ export class DragSquareComponent extends DragComponent {
         () => this.component.startX + this.dragPointSize,
         () => this.component.startY + this.dragPointSize,
         DragCursorType.LEFT_TOP_OR_RIGHT_BOTTOM,
-        (position) => {
-          this.component.startX = position.x;
+        (renderer) => {
+          this.component.startX = renderer.position.x;
           distance = this.component.startX - this.component.endX;
           this.component.startY = distance + this.component.endY;
         }
@@ -26,8 +26,8 @@ export class DragSquareComponent extends DragComponent {
         () => this.component.startX + this.dragPointSize,
         () => this.component.endY + this.dragPointSize,
         DragCursorType.RIGHT_TOP_OR_LEFT_BOTTOM,
-        (position) => {
-          this.component.startX = position.x;
+        (renderer) => {
+          this.component.startX = renderer.position.x;
           distance = this.component.endX - this.component.startX;
           this.component.endY = this.component.startY + distance;
         }
@@ -39,8 +39,8 @@ export class DragSquareComponent extends DragComponent {
         () => this.component.endX + this.dragPointSize,
         () => this.component.startY + this.dragPointSize,
         DragCursorType.RIGHT_TOP_OR_LEFT_BOTTOM,
-        (position) => {
-          this.component.endX = position.x;
+        (renderer) => {
+          this.component.endX = renderer.position.x;
           distance = this.component.endX - this.component.startX;
           this.component.startY = this.component.endY - distance;
         }
@@ -52,8 +52,8 @@ export class DragSquareComponent extends DragComponent {
         () => this.component.endX + this.dragPointSize,
         () => this.component.endY + this.dragPointSize,
         DragCursorType.LEFT_TOP_OR_RIGHT_BOTTOM,
-        (position) => {
-          this.component.endX = position.x;
+        (renderer) => {
+          this.component.endX = renderer.position.x;
           distance = this.component.endX - this.component.startX;
           this.component.endY = this.component.startY + distance;
         }
@@ -65,8 +65,8 @@ export class DragSquareComponent extends DragComponent {
         () => this.component.startX + this.component.width / 2 + this.dragPointSize,
         () => this.component.startY + this.dragPointSize,
         DragCursorType.TOP_OR_BOTTOM,
-        (position) => {
-          this.component.startY = position.y;
+        (renderer) => {
+          this.component.startY = renderer.position.y;
           distance = this.component.endY - this.component.startY;
           this.component.endX = this.component.startX + distance;
         }
@@ -78,8 +78,8 @@ export class DragSquareComponent extends DragComponent {
         () => this.component.startX + this.component.width / 2 + this.dragPointSize,
         () => this.component.endY + this.dragPointSize,
         DragCursorType.TOP_OR_BOTTOM,
-        (position) => {
-          this.component.endY = position.y;
+        (renderer) => {
+          this.component.endY = renderer.position.y;
           distance = this.component.endY - this.component.startY;
           this.component.endX = this.component.startX + distance;
         }),
@@ -90,8 +90,8 @@ export class DragSquareComponent extends DragComponent {
           () => this.component.startX + this.dragPointSize,
           () => this.component.startY + this.component.height / 2 + this.dragPointSize,
           DragCursorType.LEFT_OR_RIGHT,
-          (position) => {
-            this.component.startX = position.x;
+          (renderer) => {
+            this.component.startX = renderer.position.x;
             distance = this.component.endX - this.component.startX;
             this.component.endY = this.component.startY + distance;
           }),
@@ -102,8 +102,8 @@ export class DragSquareComponent extends DragComponent {
         () => this.component.endX + this.dragPointSize,
         () => this.component.startY + this.component.height / 2  + this.dragPointSize,
         DragCursorType.LEFT_OR_RIGHT,
-        (position) => {
-          this.component.endX = position.x;
+        (renderer) => {
+          this.component.endX = renderer.position.x;
           distance = this.component.endX - this.component.startX;
           this.component.endY = this.component.startY + distance;
         }),

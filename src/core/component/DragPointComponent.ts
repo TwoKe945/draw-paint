@@ -1,3 +1,4 @@
+import type { Renderer } from '../Renderer';
 import type { MousePosition } from '../type';
 import { RenderComponent } from './RenderComponent'
 export const DEFAULT_DRAG_COLOR = '#067BEF'
@@ -37,7 +38,7 @@ export class DragPointComponent extends RenderComponent {
     public getEndX: () => number,
     public getEndY: () => number,
     public cursor: DragCursorType = DragCursorType.NONE,
-    private handler: (_position: MousePosition, _e: MouseEvent) => void,
+    private handler: (_renderer: Renderer, _e: MouseEvent) => void,
     public hoverColor: string = DEFAULT_DRAG_COLOR,
     public color: string = DEFAULT_DRAG_COLOR,
     public isFill: boolean = false
@@ -45,7 +46,7 @@ export class DragPointComponent extends RenderComponent {
     super(getStartX(), getStartY(), getEndX(), getEndY());
   }
 
-  public handle(_position: MousePosition, _e: MouseEvent): void {
-    this.handler.bind(this)(_position, _e);
+  public handle(_renderer: Renderer, _e: MouseEvent): void {
+    this.handler.bind(this)(_renderer, _e);
   }
 }

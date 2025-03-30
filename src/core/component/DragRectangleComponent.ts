@@ -13,9 +13,9 @@ export class DragRectangleComponent extends DragComponent {
         () => this.component.startX + this.dragPointSize,
         () => this.component.startY + this.dragPointSize,
         DragCursorType.LEFT_TOP_OR_RIGHT_BOTTOM,
-        (position) => {
-          this.component.startX = position.x;
-          this.component.startY = position.y;
+        (renderer) => {
+          this.component.startX = renderer.position.x;
+          this.component.startY = renderer.position.y;
         }
       ),
       // 左下方
@@ -25,9 +25,9 @@ export class DragRectangleComponent extends DragComponent {
         () => this.component.startX + this.dragPointSize,
         () => this.component.endY + this.dragPointSize,
         DragCursorType.RIGHT_TOP_OR_LEFT_BOTTOM,
-        (position) => {
-          this.component.endY = position.y;
-          this.component.startX = position.x;
+        (renderer) => {
+          this.component.endY = renderer.position.y;
+          this.component.startX = renderer.position.x;
         }
       ),
       // 右上方
@@ -37,9 +37,9 @@ export class DragRectangleComponent extends DragComponent {
         () => this.component.endX + this.dragPointSize,
         () => this.component.startY + this.dragPointSize,
         DragCursorType.RIGHT_TOP_OR_LEFT_BOTTOM,
-        (position) => {
-          this.component.endX = position.x;
-          this.component.startY = position.y;
+        (renderer) => {
+          this.component.endX = renderer.position.x;
+          this.component.startY = renderer.position.y;
         }
       ),
          // 右下方
@@ -49,9 +49,9 @@ export class DragRectangleComponent extends DragComponent {
         () => this.component.endX + this.dragPointSize,
         () => this.component.endY + this.dragPointSize,
         DragCursorType.LEFT_TOP_OR_RIGHT_BOTTOM,
-        (position) => {
-          this.component.endX = position.x;
-          this.component.endY = position.y
+        (renderer) => {
+          this.component.endX = renderer.position.x;
+          this.component.endY = renderer.position.y
         }
       ),
       // 上方
@@ -61,8 +61,8 @@ export class DragRectangleComponent extends DragComponent {
         () => this.component.startX + this.component.width / 2 + this.dragPointSize,
         () => this.component.startY + this.dragPointSize,
         DragCursorType.TOP_OR_BOTTOM,
-        (position) => {
-          this.component.startY = position.y;
+        (renderer) => {
+          this.component.startY = renderer.position.y;
         }
       ),
         // 下方
@@ -72,8 +72,8 @@ export class DragRectangleComponent extends DragComponent {
         () => this.component.startX + this.component.width / 2 + this.dragPointSize,
         () => this.component.endY + this.dragPointSize,
         DragCursorType.TOP_OR_BOTTOM,
-        (position) => {
-          this.component.endY = position.y
+        (renderer) => {
+          this.component.endY = renderer.position.y
         }),
         // 左方
         new DragPointComponent(
@@ -82,8 +82,8 @@ export class DragRectangleComponent extends DragComponent {
           () => this.component.startX + this.dragPointSize,
           () => this.component.startY + this.component.height / 2 + this.dragPointSize,
           DragCursorType.LEFT_OR_RIGHT,
-          (position) => {
-            this.component.startX = position.x;
+          (renderer) => {
+            this.component.startX = renderer.position.x;
           }),
           // 右方
           new DragPointComponent(
@@ -92,8 +92,8 @@ export class DragRectangleComponent extends DragComponent {
           () => this.component.endX + this.dragPointSize,
           () => this.component.startY + this.component.height / 2  + this.dragPointSize,
           DragCursorType.LEFT_OR_RIGHT,
-          (position) => {
-            this.component.endX = position.x;
+          (renderer) => {
+            this.component.endX = renderer.position.x;
           }),
     ]
 
