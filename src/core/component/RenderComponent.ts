@@ -1,5 +1,4 @@
 import type { DragComponent } from "./DragComponent";
-import type { MousePosition } from '../type'
 import type { DragPointComponent } from "./DragPointComponent";
 import type { Renderer } from "../Renderer";
 

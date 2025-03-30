@@ -1,5 +1,4 @@
 import type { Renderer } from '../Renderer';
-import type { MousePosition } from '../type';
 import { RenderComponent } from './RenderComponent'
 export const DEFAULT_DRAG_COLOR = '#067BEF'
 
