@@ -95,7 +95,7 @@ function handlePropertiesTransitionEnd() {
 }
 
 function openFile(file: File) {
-  return new Promise((resolve, reject) => {
+  return new Promise((resolve, _reject) => {
     let reader = new FileReader();
     reader.onload = function(){
       resolve(this.result)

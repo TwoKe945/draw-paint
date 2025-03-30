@@ -2,7 +2,6 @@ import { RenderComponent } from './RenderComponent'
 import { DragRectangleComponent } from './DragRectangleComponent'
 
 export class ImageComponent extends RenderComponent {
-  private precent: number
   constructor(
     private _image: HTMLImageElement,
     _startX: number,
@@ -14,7 +13,6 @@ export class ImageComponent extends RenderComponent {
   ) {
     super(_startX, _startY, _endX, _endY);
     this.dragComponent = new DragRectangleComponent(this);
-    this.precent = this._image.width / this._image.height;
   }
 
   public render(ctx: CanvasRenderingContext2D) {
