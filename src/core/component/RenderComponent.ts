@@ -1,15 +1,19 @@
 import type { DragComponent } from "./DragComponent";
 import type { DragPointComponent } from "./DragPointComponent";
-import type { Renderer } from "../Renderer";
+import type { Renderer } from "../renderer";
+
+
+const MIN_WIDTH = 20;
+const MIN_HEIGHT = 20;
 
 export abstract class RenderComponent {
   public dragComponent?: DragComponent;
   private selectedDragPointComponent: DragPointComponent | null;
   constructor(
-    private _startX: number,
-    private _startY: number,
-    private _endX: number,
-    private _endY: number,
+    protected _startX: number,
+    protected _startY: number,
+    protected _endX: number,
+    protected _endY: number,
     public isMouseDown: boolean = false,
     public isSelected: boolean = false,
     public showComponentInfo: boolean = false,
@@ -23,32 +27,32 @@ export abstract class RenderComponent {
   }
 
   public set startX(value: number) {
-    if (this._endX - value <= 20) {
-      this._startX = this._endX - 20;
+    if (this._endX - value <= MIN_WIDTH) {
+      this._startX = this._endX - MIN_WIDTH;
       return;
     }
     this._startX = value;
   }
 
   public set startY(value: number) {
-    if (this.endY - value <= 20) { 
-      this._startY = this._endY - 20;
+    if (this.endY - value <= MIN_HEIGHT) {
+      this._startY = this._endY - MIN_HEIGHT;
       return;
     }
     this._startY = value;
   }
 
   public set endX(value: number) {
-    if (value - this._startX <= 20) {
-      this._endX = this._startX + 20;
+    if (value - this._startX <= MIN_WIDTH) {
+      this._endX = this._startX + MIN_WIDTH;
       return;
     }
     this._endX = value;
   }
 
   public set endY(value: number) {
-    if (value - this._startY <= 20) { 
-      this._endY = this._startY + 20;
+    if (value - this._startY <= MIN_HEIGHT) {
+      this._endY = this._startY + MIN_HEIGHT;
       return;
     }
     this._endY = value;
@@ -77,17 +81,52 @@ export abstract class RenderComponent {
     return this.startX;
   }
 
+  set x(val: number) {
+    const distance = this._startX - this._endX;
+    this._startX = val;
+    this._endX = val - distance;
+  }
+
   get y(): number {
     return this.startY;
+  }
+
+  set y(val: number) {
+    const distance = this._startY - this._endY;
+    this._startY = val;
+    this._endY = val - distance;
   }
 
   get width(): number {
     return this.endX - this.startX;
   }
 
+  set width(val: number) {
+    if (val <= MIN_WIDTH) {
+      val = MIN_WIDTH;
+    }
+    this.doSetWidth(val);
+  }
+
+  protected doSetWidth(val: number) {
+    this._endX = this._startX + val;
+  }
+
+  protected doSetHiehgt(val: number) {
+    this._endY = this._startY + val;
+  }
+
   get height(): number {
     return this.endY - this.startY;
   }
+
+  set height(val: number) {
+    if (val <= MIN_HEIGHT) {
+      val = MIN_HEIGHT;
+    }
+    this.doSetHiehgt(val);
+  }
+
 
   abstract render(ctx: CanvasRenderingContext2D): void;
   abstract isInside(x: number, y: number): boolean;

@@ -1,3 +1,2 @@
 export * from './component'
-export * from './Renderer'
-export * from './CanvasRenderer'
+export * from './renderer'

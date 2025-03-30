@@ -1,5 +1,5 @@
-import { RenderComponent } from './component'
-import type { MousePosition } from './type'
+import { RenderComponent } from '../component'
+import type { MousePosition } from '../type'
 import Mitt,{type Emitter } from 'mitt'
 
 type RenderEvents = {

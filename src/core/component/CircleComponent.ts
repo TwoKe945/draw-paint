@@ -35,4 +35,14 @@ export class CircleComponent extends RenderComponent {
     return Math.hypot(x - (this.startX + radius), y - (this.startY + radius)) <= radius;
   }
 
+  protected doSetWidth(val: number): void {
+    this._endX = this._startX + val;
+    this._endY = this._startY + val;
+  }
+
+  protected doSetHiehgt(val: number): void {
+    this._endX = this._startX + val;
+    this._endY = this._startY + val;
+  }
+
 }

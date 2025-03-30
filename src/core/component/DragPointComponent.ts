@@ -1,4 +1,4 @@
-import type { Renderer } from '../Renderer';
+import type { Renderer } from '../renderer';
 import { RenderComponent } from './RenderComponent'
 export const DEFAULT_DRAG_COLOR = '#067BEF'
 

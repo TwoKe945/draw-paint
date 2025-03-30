@@ -1,5 +1,5 @@
-import { RenderComponent } from './component'
-import type { MousePosition } from './type'
+import { RenderComponent } from '../component'
+import type { MousePosition } from '../type'
 import { Renderer } from './Renderer'
 
 export class CanvasRenderer  extends Renderer {

@@ -14,6 +14,16 @@ export class SquareComponent extends RenderComponent {
     this.dragComponent = new DragSquareComponent(this);
   }
 
+  protected doSetWidth(val: number): void {
+    this._endX = this._startX + val;
+    this._endY = this._startY + val;
+  }
+
+  protected doSetHiehgt(val: number): void {
+    this._endX = this._startX + val;
+    this._endY = this._startY + val;
+  }
+
   public render(ctx: CanvasRenderingContext2D) {
     ctx.beginPath();
     ctx.rect(this.startX, this.startY, this.endX - this.startX, this.endY - this.startY);
