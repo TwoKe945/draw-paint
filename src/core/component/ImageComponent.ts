@@ -1,18 +1,16 @@
 import { RenderComponent } from './RenderComponent'
-import { DragRectangleComponent } from './DragRectangleComponent'
+import { DrageScaleComponent } from './DrageScaleComponent'
 
 export class ImageComponent extends RenderComponent {
   constructor(
     private _image: HTMLImageElement,
     _startX: number,
     _startY: number,
-    _endX: number,
-    _endY: number,
     public color: string = '#000',
     public isFill: boolean = false
   ) {
-    super(_startX, _startY, _endX, _endY);
-    this.dragComponent = new DragRectangleComponent(this);
+    super(_startX, _startY, Math.round(_startX + 200), Math.round(_startY + 200 * _image.height / _image.width));
+    this.dragComponent = new DrageScaleComponent(this, _image.height / _image.width);
   }
 
   public render(ctx: CanvasRenderingContext2D) {

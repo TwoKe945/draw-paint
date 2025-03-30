@@ -108,7 +108,9 @@ function openFile(file: File) {
 async function handleCreateImage(file: UploadRawFile) {
     const image = new Image();
     image.src = await openFile(file)! as string
-    canvas?.addComponent(new ImageComponent(image, 0, 0, 200, 200));
+    image.onload = function () {
+      canvas?.addComponent(new ImageComponent(image, 400, 500));
+    }
   return Promise.reject()
 }
 
