@@ -192,7 +192,7 @@ function handlePropertiesTransitionEnd() {
           <el-row :gutter="24" style="padding: 0px 20px;">
             <el-col :md="24">
               <el-form-item  label="颜色"  label-width="40px">
-                <el-color-picker v-model="(selectedComponent as any).color" />
+                <el-color-picker  show-alpha v-model="(selectedComponent as any).color" />
               </el-form-item>
             </el-col>
             <el-col :md="24">
