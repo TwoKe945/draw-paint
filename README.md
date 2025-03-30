@@ -1,5 +1,24 @@
-# Vue 3 + TypeScript + Vite
+# 基于原生Canvas + Vue的绘图面板
 
-This template should help get you started developing with Vue 3 and TypeScript in Vite. The template uses Vue 3 `<script setup>` SFCs, check out the [script setup docs](https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup) to learn more.
+> 基于canvas绘制，mitt事件驱动的绘图面板
 
-Learn more about the recommended Project Setup and IDE Support in the [Vue Docs TypeScript Guide](https://vuejs.org/guide/typescript/overview.html#project-setup).
+## 技术栈学习
+
+- (Canvas)[https://developer.mozilla.org/zh-CN/docs/Web/API/Canvas_API#%E5%8F%82%E8%80%83]
+- (Vue)[https://cn.vuejs.org/]
+- (Mitt)[https://www.npmjs.com/package/mitt]
+
+
+## 预览
+
+**主面板**
+
+![](./docs/1.png)
+
+**属性面板-1**
+
+![](./docs/2.png)
+
+**属性面板-2**
+
+![](./docs/3.png)
