@@ -4,8 +4,10 @@ import type { MousePosition } from './type'
 export abstract class Renderer {
 
   public abstract render(): void;
-  public abstract close(): void;
+  public abstract uninstall(): void;
+  public abstract install(): void;
   public abstract clean(): void;
+  public abstract onSelected(component: RenderComponent): void
 }
 
 
@@ -16,12 +18,20 @@ export class CanvasRenderer  extends Renderer {
   private isInited: boolean = false;
   private isClosed: boolean = false;
   public components: RenderComponent[] = [];
-  public mousePosition:MousePosition;
-  public selectedComponent: RenderComponent | null;
+  public mousePosition:MousePosition = {
+    x: 0,
+    y: 0
+  };
+  public selectedComponent: RenderComponent | null = null;
 
   constructor(el: HTMLElement) {
     super();
     this.container = el;
+    this.install()
+  }
+
+  public install():void {
+    if (!this.container) throw new Error("容器不存在！")
     // 鼠标信息
     this.mousePosition = {
       x: 0,
@@ -32,6 +42,7 @@ export class CanvasRenderer  extends Renderer {
   }
 
   public addComponent(component: RenderComponent): void {
+    console.log('新增组件', component)
     this.components.push(component);
 
   }
@@ -42,6 +53,7 @@ export class CanvasRenderer  extends Renderer {
       // this.
       this.initBindMouseEvents();
       this.isInited = true;
+      this.isClosed = false;
     }
   }
 
@@ -208,7 +220,8 @@ export class CanvasRenderer  extends Renderer {
   }
 
   public clean() {
-
+    // 清空组件
+    this.components.length = 0;
   }
 
   protected clearCanvas() {
@@ -244,8 +257,13 @@ export class CanvasRenderer  extends Renderer {
     requestAnimationFrame(this.render.bind(this));
   }
 
-  public close(): void {
+  public uninstall(): void {
+    if (!this.isInited) return
+    if (this.container && this.canvas) {
+      this.container.removeChild(this.canvas)
+    }
     this.isClosed = true;
+    this.isInited = false
   }
 
   private adjustForHighDPI() {

@@ -12,18 +12,20 @@ let canvas:CanvasRenderer|null = null;
 onMounted(() => {
   if (!containerRef.value) return
   canvas = new CanvasRenderer(containerRef.value!);
-  canvas.addComponent(new RectangleComponent(100, 100, 200, 200, '#00f', true));
-  canvas.addComponent(new SquareComponent(100, 100, 200, 200, '#f00', true));
-  canvas.addComponent(new CircleComponent(100, 100, 200, 200, '#0f0', true));
   canvas.render();
+})
 
+
+onUnmounted(() => {
+  canvas?.uninstall()
 })
 
 const factory:Map<ShapeType, () => RenderComponent> = new Map()
 
-factory.set(ShapeType.CIRCLE, () => new CircleComponent(100, 100, 200, 200))
-factory.set(ShapeType.RECTANGLE, () => new SquareComponent(100, 100, 200, 200))
-factory.set(ShapeType.RECTANGLE, () => new RectangleComponent(100, 100, 200, 200))
+factory.set(ShapeType.CIRCLE, () => new CircleComponent(400, 400, 500, 500, '#00f', true))
+factory.set(ShapeType.SQUARE, () => new SquareComponent(
+  400, 400, 500, 500, '#f00', true))
+factory.set(ShapeType.RECTANGLE, () => new RectangleComponent(400, 400, 500, 500, '#0f0', true))
 
 
 function handleCreateShape(type: ShapeType) {
@@ -32,16 +34,34 @@ function handleCreateShape(type: ShapeType) {
   canvas?.addComponent(getter())
 }
 
+function handleClear(){
+  canvas?.clean()
+}
+
+// 卸载
+function handleUninstall() {
+  canvas?.uninstall()
+}
+
+// 安装
+function handleInstall() {
+  canvas?.install();
+  canvas?.render()
+}
+
 </script>
 
 <template>
   <div class="container">
     <el-affix :offset="120" style="pointer-events: none;">
       <el-card style="max-width: 100px; pointer-events: all;">
-        <div style="display: flex; flex-direction: column;justify-content: center;gap: 10px; align-items: center;">
+        <div style="display: flex; flex-direction: column;justify-content: center;width: 50px; gap: 10px; align-items: center;">
           <div><el-button @click="handleCreateShape(ShapeType.RECTANGLE)" >长方形</el-button></div>
           <div><el-button @click="handleCreateShape(ShapeType.SQUARE)" >正方向</el-button></div>
           <div><el-button @click="handleCreateShape(ShapeType.CIRCLE)" >圆形</el-button></div>
+          <div><el-button @click="handleClear()" >清空</el-button></div>
+          <div><el-button @click="handleInstall()" >安装</el-button></div>
+          <div><el-button @click="handleUninstall()" >卸载</el-button></div>
         </div>
       </el-card>
     </el-affix>
@@ -73,3 +93,4 @@ function handleCreateShape(type: ShapeType) {
   radial-gradient(circle, rgb(203 213 225) 2px, #fff 2px); */
 }
 </style>
+width
