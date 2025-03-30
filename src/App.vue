@@ -1,5 +1,10 @@
 <script setup lang="ts">
 // import ContextMenu from '@imengyu/vue3-context-menu';
+// @ts-ignore
+import zhCn from 'element-plus/dist/locale/zh-cn.mjs'
+const locale = ref(zhCn)
+
+
 import { RectangleComponent, CircleComponent, SquareComponent, CanvasRenderer, RenderComponent } from './core'
 const containerRef = ref<HTMLDivElement>()
 enum ShapeType {
@@ -92,112 +97,114 @@ function handlePropertiesTransitionEnd() {
 </script>
 
 <template>
-  <div class="container">
-    <el-affix :offset="0" :z-index="9999" style="pointer-events: none;">
-      <el-card style="pointer-events: all;">
-        <div  style="display: flex;justify-content:space-between; align-items: center;">
-          <div></div>
-          <div style="display: flex;justify-content: center; gap: 10px; align-items: center;">
-            <div title="长方形"><el-button link @click="handleCreateShape(ShapeType.RECTANGLE)" >
-              <el-icon size="24">
-                <IconArcticonsRectangleHorizontal />
-              </el-icon>
-            </el-button></div>
-            <div title="正方形"><el-button link @click="handleCreateShape(ShapeType.SQUARE)" >
-              <el-icon size="24">
-                <IconArcticonsSquare />
-              </el-icon>
-            </el-button></div>
-            <div title="圆形"><el-button link  @click="handleCreateShape(ShapeType.CIRCLE)" >
-              <el-icon size="24">
-                <IconArcticonsCircle />
-              </el-icon>
-            </el-button></div>
-            <div title="清空"><el-button link @click="handleClear()" >
-              <el-icon  size="24">
-                <IconArcticonsNoxcleaner />
-              </el-icon>
-            </el-button></div>
-            <div title="安装"><el-button link type="warning" @click="handleInstall()" :disabled="installed">
-              <el-icon  size="24">
-                <IconArcticonsWearInstaller />
-              </el-icon>
-            </el-button></div>
-            <div title="卸载"><el-button link type="danger" @click="handleUninstall()" :disabled="!installed">
-              <el-icon  size="24">
-                <IconArcticonsMultiAppUninstaller />
-              </el-icon>
-            </el-button></div>
+  <el-config-provider :locale="locale">
+    <div class="container">
+      <el-affix :offset="0" :z-index="9999" style="pointer-events: none;">
+        <el-card style="pointer-events: all;">
+          <div  style="display: flex;justify-content:space-between; align-items: center;">
+            <div></div>
+            <div style="display: flex;justify-content: center; gap: 10px; align-items: center;">
+              <div title="长方形"><el-button link @click="handleCreateShape(ShapeType.RECTANGLE)" >
+                <el-icon size="24">
+                  <IconArcticonsRectangleHorizontal />
+                </el-icon>
+              </el-button></div>
+              <div title="正方形"><el-button link @click="handleCreateShape(ShapeType.SQUARE)" >
+                <el-icon size="24">
+                  <IconArcticonsSquare />
+                </el-icon>
+              </el-button></div>
+              <div title="圆形"><el-button link  @click="handleCreateShape(ShapeType.CIRCLE)" >
+                <el-icon size="24">
+                  <IconArcticonsCircle />
+                </el-icon>
+              </el-button></div>
+              <div title="清空"><el-button link @click="handleClear()" >
+                <el-icon  size="24">
+                  <IconArcticonsNoxcleaner />
+                </el-icon>
+              </el-button></div>
+              <div title="安装"><el-button link type="warning" @click="handleInstall()" :disabled="installed">
+                <el-icon  size="24">
+                  <IconArcticonsWearInstaller />
+                </el-icon>
+              </el-button></div>
+              <div title="卸载"><el-button link type="danger" @click="handleUninstall()" :disabled="!installed">
+                <el-icon  size="24">
+                  <IconArcticonsMultiAppUninstaller />
+                </el-icon>
+              </el-button></div>
+            </div>
+            <div>
+              <el-button :class="{
+                'menu-switch': true,
+                active: isOpenProperties
+              }" link @click="handleToggleMenu()">
+                <el-icon size="24">
+                  <IconArcticonsHamburgerMenu />
+                </el-icon>
+              </el-button>
+            </div>
           </div>
-          <div>
-            <el-button :class="{
-              'menu-switch': true,
-              active: isOpenProperties
-            }" link @click="handleToggleMenu()">
-              <el-icon size="24">
-                <IconArcticonsHamburgerMenu />
-              </el-icon>
-            </el-button>
-          </div>
-        </div>
-      </el-card>
-    </el-affix>
-    <div class="draw-panel" ref="containerRef"></div>
-    <div class="shape-properties"
-      :class="{
-        'is-open': isOpenProperties,
-        'is-moving': isVisibleProperties
-      }"
-      @transitionend="handlePropertiesTransitionEnd"
-    >
-      <el-form  :disabled="Object.keys(selectedComponent).length === 0" size="small">
-        <el-divider content-position="left">布局</el-divider>
-        <el-row :gutter="24" style="padding: 0px 20px;">
-          <el-col :md="12">
-            <el-form-item>
-              <el-input-number controls-position="right" v-model="selectedComponent.x" >
-                <template #suffix>X</template>
-              </el-input-number>
-            </el-form-item>
-          </el-col>
-          <el-col :md="12">
-            <el-form-item>
-              <el-input-number controls-position="right"  v-model="selectedComponent.y" >
-                <template #suffix>Y</template>
-              </el-input-number>
-            </el-form-item>
-          </el-col>
-          <el-col :md="12">
-            <el-form-item>
-              <el-input-number controls-position="right" v-model="selectedComponent.width" >
-                <template #suffix>W</template>
-              </el-input-number>
-            </el-form-item>
-          </el-col>
-          <el-col :md="12">
-            <el-form-item>
-              <el-input-number controls-position="right" v-model="selectedComponent.height" >
-                <template #suffix>H</template>
-              </el-input-number>
-            </el-form-item>
-          </el-col>
-        </el-row>
-        <el-divider content-position="left">填充</el-divider>
-        <el-row :gutter="24" style="padding: 0px 20px;">
-          <el-col :md="24">
-            <el-form-item  label="颜色"  label-width="40px">
-              <el-color-picker v-model="(selectedComponent as any).color" />
-            </el-form-item>
-          </el-col>
-          <el-col :md="24">
-            <el-form-item label="填充" label-width="40px">
-              <el-checkbox  v-model="(selectedComponent as any).isFill" />
-            </el-form-item>
-          </el-col>
-        </el-row>
-      </el-form>
+        </el-card>
+      </el-affix>
+      <div class="draw-panel" ref="containerRef"></div>
+      <div class="shape-properties"
+        :class="{
+          'is-open': isOpenProperties,
+          'is-moving': isVisibleProperties
+        }"
+        @transitionend="handlePropertiesTransitionEnd"
+      >
+        <el-form  :disabled="Object.keys(selectedComponent).length === 0" size="small">
+          <el-divider content-position="left">布局</el-divider>
+          <el-row :gutter="24" style="padding: 0px 20px;">
+            <el-col :md="12">
+              <el-form-item>
+                <el-input-number controls-position="right" v-model="selectedComponent.x" >
+                  <template #suffix>X</template>
+                </el-input-number>
+              </el-form-item>
+            </el-col>
+            <el-col :md="12">
+              <el-form-item>
+                <el-input-number controls-position="right"  v-model="selectedComponent.y" >
+                  <template #suffix>Y</template>
+                </el-input-number>
+              </el-form-item>
+            </el-col>
+            <el-col :md="12">
+              <el-form-item>
+                <el-input-number controls-position="right" v-model="selectedComponent.width" >
+                  <template #suffix>W</template>
+                </el-input-number>
+              </el-form-item>
+            </el-col>
+            <el-col :md="12">
+              <el-form-item>
+                <el-input-number controls-position="right" v-model="selectedComponent.height" >
+                  <template #suffix>H</template>
+                </el-input-number>
+              </el-form-item>
+            </el-col>
+          </el-row>
+          <el-divider content-position="left">填充</el-divider>
+          <el-row :gutter="24" style="padding: 0px 20px;">
+            <el-col :md="24">
+              <el-form-item  label="颜色"  label-width="40px">
+                <el-color-picker v-model="(selectedComponent as any).color" />
+              </el-form-item>
+            </el-col>
+            <el-col :md="24">
+              <el-form-item label="填充" label-width="40px">
+                <el-checkbox  v-model="(selectedComponent as any).isFill" />
+              </el-form-item>
+            </el-col>
+          </el-row>
+        </el-form>
+      </div>
     </div>
-  </div>
+  </el-config-provider>
 </template>
 
 <style scoped lang="scss">
