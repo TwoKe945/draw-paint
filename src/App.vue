@@ -3,14 +3,14 @@
 // @ts-ignore
 import zhCn from 'element-plus/dist/locale/zh-cn.mjs'
 const locale = ref(zhCn)
-
-
-import { RectangleComponent, CircleComponent, SquareComponent, CanvasRenderer, RenderComponent } from './core'
+import { RectangleComponent, CircleComponent, SquareComponent, CanvasRenderer, RenderComponent, ImageComponent } from './core'
+import type { UploadRawFile } from 'element-plus';
 const containerRef = ref<HTMLDivElement>()
 enum ShapeType {
   CIRCLE,
   RECTANGLE,
-  SQUARE
+  SQUARE,
+  IMAGE
 }
 let canvas:CanvasRenderer|null = null;
 
@@ -94,6 +94,24 @@ function handlePropertiesTransitionEnd() {
   }
 }
 
+function openFile(file: File) {
+  return new Promise((resolve, reject) => {
+    let reader = new FileReader();
+    reader.onload = function(){
+      resolve(this.result)
+    };
+    reader.readAsDataURL(file);
+  })
+}
+
+
+async function handleCreateImage(file: UploadRawFile) {
+    const image = new Image();
+    image.src = await openFile(file)! as string
+    canvas?.addComponent(new ImageComponent(image, 0, 0, 200, 200));
+  return Promise.reject()
+}
+
 </script>
 
 <template>
@@ -119,6 +137,15 @@ function handlePropertiesTransitionEnd() {
                   <IconArcticonsCircle />
                 </el-icon>
               </el-button></div>
+              <div title="图片">
+                <el-upload accept=".png,.jpeg,.jpg" multiple :show-file-list="false" :before-upload="handleCreateImage" :limit="9">
+                  <el-button link  @click="handleCreateShape(ShapeType.IMAGE)" >
+                    <el-icon size="24">
+                      <IconArcticonsImageCombiner />
+                    </el-icon>
+                  </el-button>
+                </el-upload>
+              </div>
               <div title="清空"><el-button link @click="handleClear()" >
                 <el-icon  size="24">
                   <IconArcticonsNoxcleaner />
